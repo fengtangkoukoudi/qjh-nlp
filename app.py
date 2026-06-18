@@ -360,7 +360,7 @@ else:
                 st.subheader("📈 情感趋势")
                 st.line_chart(pd.DataFrame({'序号': range(1, len(scores_list)+1), '强度': [s*100 for s in scores_list]}).set_index('序号'))
 
-            df = pd.DataFrame(results); st.dataframe(df, use_column_width=True)
+            df = pd.DataFrame(results); st.dataframe(df)
             st.download_button("📥 下载 CSV", df.to_csv(index=False, encoding='utf-8-sig'), "result.csv", key="dl")
 
 # ── 历史 ────────────────────────────────────
