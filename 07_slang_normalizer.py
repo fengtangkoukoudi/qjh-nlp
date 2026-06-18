@@ -240,7 +240,7 @@ class SarcasmDetector:
         if ('…' in text or '...' in text) and neg_hits_all:
             sarcasm_score -= 0.05
 
-        is_sarcasm = sarcasm_score < -0.15
+        is_sarcasm = sarcasm_score < -0.10    # 更敏感：-0.15 → -0.10
         confidence = min(abs(sarcasm_score) * 2, 0.95)
         return is_sarcasm, confidence, reasons
 
@@ -333,7 +333,7 @@ class DeepUnderstander:
         result['sarcasm_reasons'] = sarcasm_reasons
 
         # Step 4: 综合判断
-        if is_sarcasm and sarcasm_conf > 0.3:
+        if is_sarcasm and sarcasm_conf > 0.2:  # 更低翻转门槛：0.3 → 0.2
             final_pred = 1 - pred
             result['flipped'] = True
             result['reasoning'].append(
@@ -393,9 +393,10 @@ class DeepUnderstander:
 
     @staticmethod
     def _classify(pred, score):
+        # 阈值：正面>0.65, 负面>0.55(更敏感), 其余中性
         if pred == 1 and score > 0.65:
             return 2, "正面", "😊", "#22c55e"
-        elif pred == 0 and score > 0.65:
+        elif pred == 0 and score > 0.55:
             return 0, "负面", "😞", "#ef4444"
         else:
             return 1, "中性", "😐", "#f59e0b"

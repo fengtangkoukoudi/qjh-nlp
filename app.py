@@ -105,7 +105,7 @@ def predict_ensemble(text):
 
 def classify_ternary(pred, score):
     if pred == 1 and score > 0.65: return 2, "正面", "😊", "#22c55e"
-    elif pred == 0 and score > 0.65: return 0, "负面", "😞", "#ef4444"
+    elif pred == 0 and score > 0.55: return 0, "负面", "😞", "#ef4444"   # 负面更敏感: 0.65→0.55
     else: return 1, "中性", "😐", "#f59e0b"
 
 # ── 深度分析引擎 ──────────────────────────────
@@ -149,7 +149,7 @@ def deep_analyze(text):
     result['sarcasm_reasons'] = sar_reasons
 
     # 4. 最终判断
-    if result['sarcasm'] and result['sarcasm_score'] > 0.3:
+    if result['sarcasm'] and result['sarcasm_score'] > 0.2:  # 更易翻转: 0.3→0.2
         result['final_pred'] = 1 - pred
         result['flipped'] = True
     else:
