@@ -1,0 +1,25 @@
+# 模型权重（太大，不上传）
+models/bert-finetuned/
+models/roberta-finetuned/
+models/onnx/
+
+# 训练输出
+outputs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# HuggingFace 缓存
+*.cache/
